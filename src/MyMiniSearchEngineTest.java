@@ -1,10 +1,8 @@
-import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class MyMiniSearchEngineTest {
     private List<String> documents() {
@@ -22,9 +20,7 @@ public class MyMiniSearchEngineTest {
     public void testOneWord() {
         MyMiniSearchEngine engine = new MyMiniSearchEngine(documents());
         List<Integer> result = engine.search("seattle");
-
         assertEquals(1, result.size());
-
         assertEquals(Integer.valueOf(4), result.get(0));
     }
 
@@ -32,10 +28,8 @@ public class MyMiniSearchEngineTest {
     public void testTwoWord() {
         MyMiniSearchEngine engine = new MyMiniSearchEngine(documents());
         List<Integer> result = engine.search("hello world");
-
         assertEquals(2, result.size());
-
-        assertEquals(List.of(0, 5), result);
+        assertEquals(Arrays.asList(0,5), result);
     }
 
     @Test
@@ -50,19 +44,31 @@ public class MyMiniSearchEngineTest {
         for (String input : inputs) {
             List<Integer> result = engine.search(input);
             assertEquals(1, result.size());
-            assertEquals(List.of(4), result);
+            assertEquals(Arrays.asList(4), result);
         }
     }
 
     @Test
     public void testFourWord() {
-        // homework
-        assertTrue(false); // place holder
+        MyMiniSearchEngine engine = new MyMiniSearchEngine(documents());
+        String[] inputs = {
+                "sunday hello world fun",
+                "Sunday Hello World Fun",
+        };
+        
+        for (String input : inputs) {
+            List<Integer> result = engine.search(input);
+            assertEquals(1, result.size());
+            assertEquals(Arrays.asList(5), result);
+        }
+
     }
 
     @Test
     public void testWordNotFound() {
-        // homework
-        assertTrue(false); // place holder
+    	MyMiniSearchEngine engine = new MyMiniSearchEngine(documents());
+        List<Integer> result = engine.search("Not Found");
+        assertEquals(0, result.size());
+        assertEquals(Arrays.asList(), result);
     }
 }
